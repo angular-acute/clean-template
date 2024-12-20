@@ -1,5 +1,5 @@
 {
-  "name": "@acute/clean-template",
+  "name": "@acute/eslint-plugin-clean-template",
   "version": "1.0.0",
   "description": "An ESLint plugins to keep your Angular template clean.",
   "main": "index.js",
