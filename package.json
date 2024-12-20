@@ -1,0 +1,36 @@
+{
+  "name": "@acute/clean-template",
+  "version": "1.0.0",
+  "description": "An ESLint plugins to keep your Angular template clean.",
+  "main": "index.js",
+  "keywords": [
+    "eslint-plugin",
+    "eslint"
+  ],
+  "author": "Thomas Hillebrandt",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/angular-acute/clean-template.git"
+  },
+  "bugs": {
+    "url": "https://github.com/angular-acute/clean-template/issues"
+  },
+  "homepage": "https://github.com/angular-acute/clean-template#readme",
+  "scripts": {
+    "test": "jest",
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "prettier": "^3.4.2",
+    "typescript": "^5.7.2"
+  },
+  "files": [
+    "index.js",
+    "parsers"
+  ],
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
