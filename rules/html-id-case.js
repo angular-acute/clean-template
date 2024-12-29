@@ -1,27 +1,30 @@
 caseToKebab = (input) =>
-  (input ?? '')
-    .replace(/([a-z])([A-Z])/g, '$1-$2')
+  (input ?? "")
+    .replace(/([a-z])([A-Z])/g, "$1-$2")
     .toLowerCase()
-    .replace(/[\W_]/g, '-');
+    .replace(/[\W_]/g, "-");
 
-caseToSnake = (input) => caseToKebab(input).replace(/-/, '_');
+caseToSnake = (input) => caseToKebab(input).replace(/-/, "_");
 
 caseToCamel = (input) =>
-  (input ?? '').replace(/[-_.]([a-z])/g, (c) => c[1].toUpperCase());
+  (input ?? "").replace(/[-_.]([a-z])/g, (c) => c[1].toUpperCase());
 
 caseToPascal = (input) =>
   caseToCamel(input).replace(/^[a-z]/, (c) => c[0].toUpperCase());
 
 module.exports = {
   meta: {
-    fixable: 'code',
-    type: 'layout',
+    fixable: "code",
+    type: "layout",
     schema: [
       {
-        type: 'object',
+        type: "object",
         properties: {
-          target: { type: 'kebab' | 'snake' | 'camel' | 'pascal' },
-          ignoreNgInterpolation: { type: 'boolean' },
+          case: {
+            type: "string",
+            enum: ["kebab" , "snake" , "camel" , "pascal"],
+          },
+          ignoreNgInterpolation: { type: "boolean" },
         },
       },
     ],
@@ -34,10 +37,10 @@ module.exports = {
       pascal: /^[A-Z][a-z0-9]+([A-Z][a-z0-9]*)*$/,
     };
     const nameCase = {
-      kebab: 'kebab-case',
-      snake: 'snake_case',
-      camel: 'camelCase',
-      pascal: 'PascalCase',
+      kebab: "kebab-case",
+      snake: "snake_case",
+      camel: "camelCase",
+      pascal: "PascalCase",
     };
     const fixCase = {
       kebab: caseToKebab,
@@ -46,20 +49,20 @@ module.exports = {
       pascal: caseToPascal,
     };
     const joinCase = {
-      kebab: '-',
-      snake: '_',
-      camel: '',
-      pascal: '',
+      kebab: "-",
+      snake: "_",
+      camel: "",
+      pascal: "",
     };
 
     const range = (span) => [span.start?.offset, span.end?.offset];
 
-    const useCase = context.options?.at(0)?.target ?? 'kebab';
+    const useCase = context.options?.at(0)?.case ?? "kebab";
     const ignoreNg = context.options?.at(0)?.ignoreNgInterpolation;
 
     return {
       TextAttribute(node) {
-        if (node.name !== 'id') return;
+        if (node.name !== "id") return;
         const idValue = node.value;
 
         if (!formatCase[useCase].test(idValue)) {
@@ -76,14 +79,14 @@ module.exports = {
         }
       },
       Interpolation$1(node) {
-        if (ignoreNg || node.parent?.parent?.name !== 'id') return;
+        if (ignoreNg || node.parent?.parent?.name !== "id") return;
 
         buildName = (exp) => {
-          if (exp.type === 'BindingPipe') {
+          if (exp.type === "BindingPipe") {
             return buildName(exp.exp);
           }
           if (exp.receiver?.name) {
-            if (!exp.name && exp.type === 'Call') {
+            if (!exp.name && exp.type === "Call") {
               return `${buildName(exp.receiver)}()`;
             }
 
@@ -94,7 +97,7 @@ module.exports = {
         };
 
         buildPipe = (exp) => {
-          if (exp.exp.type === 'BindingPipe') {
+          if (exp.exp.type === "BindingPipe") {
             return `${buildPipe(exp.exp)} | ${exp.name}`;
           }
 
@@ -118,7 +121,7 @@ module.exports = {
             .join(joinCase[useCase]);
 
         const idVars = node.expressions.map((exp) => {
-          if (exp.type === 'BindingPipe') {
+          if (exp.type === "BindingPipe") {
             return `${buildName(exp.exp)} | ${buildPipe(exp)}`;
           }
 
@@ -127,9 +130,9 @@ module.exports = {
         const idStrings = node.strings;
 
         if (
-          !stringMerge(idStrings, Array(idStrings.length - 1).fill(''), true) ||
+          !stringMerge(idStrings, Array(idStrings.length - 1).fill(""), true) ||
           formatCase[useCase].test(
-            stringMerge(idStrings, Array(idStrings.length - 1).fill(''), true)
+            stringMerge(idStrings, Array(idStrings.length - 1).fill(""), true)
           )
         )
           return;
@@ -149,5 +152,5 @@ module.exports = {
       },
     };
   },
-  defaultOptions: [{ target: 'kebab', ignoreNgInterpolation: false }],
+  defaultOptions: [{ case: "kebab", ignoreNgInterpolation: false }],
 };
