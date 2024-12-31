@@ -17,7 +17,7 @@
 {
   "rules": {
     "html-id-case": [
-      "error",
+      "warn",
       {
         "case": "camel",
         "ignoreInterpolated": true
