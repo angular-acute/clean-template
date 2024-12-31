@@ -7,6 +7,10 @@ module.exports = {
       structural:
         "Pointless structural binding of string literal {{ theString }}.",
     },
+    docs: {
+      description: "Prevent binding properties to string literals.",
+      url: "",
+    },
   },
   create: (context) => {
     const range = (node, plus) => [
