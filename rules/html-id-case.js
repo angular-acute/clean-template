@@ -86,60 +86,66 @@ module.exports = {
 
     return {
       TextAttribute(node) {
-        if (node.name !== "id") return;
-        const idValue = node.value;
-
-        const format = formatCase[useCase].test(idValue);
-        const fixum = fixCase[useCase](idValue);
-
-        if (!idValue.trim()) {
-          context.report({
-            node,
-            message: `Template id attributes should not be empty.`,
-          });
-        } else if (!formatCase[useCase].test(idValue)) {
-          context.report({
-            node,
-            message: `Template id attributes should be in ${nameCase[useCase]}.`,
-            fix(fixer) {
-              return fixer.replaceTextRange(
-                range(node.valueSpan),
-                fixCase[useCase](idValue)
-              );
-            },
-          });
-        }
+        processTextAttribute(node, context, useCase);
       },
+
       Interpolation$1(node) {
-        if (ignoreNg || node.parent?.parent?.name !== "id") return;
-
-        const idVars = node.expressions.map(buildExpression);
-
-        const idStrings = node.strings;
-
-        const mergedString = stringMerge(
-          useCase,
-          idStrings,
-          Array(idStrings.length - 1).fill(nameCase[useCase]),
-          true
-        );
-
-        if (!mergedString || formatCase[useCase].test(mergedString)) return;
-
-        const fixedStrings = idStrings.map((strng) => fixCase[useCase](strng));
-
-        context.report({
-          node: node.parent.parent,
-          message: `Template id attributes should be in ${nameCase[useCase]}.`,
-          fix(fixer) {
-            return fixer.replaceTextRange(
-              [node.sourceSpan.start, node.sourceSpan.end],
-              stringMerge(useCase, fixedStrings, idVars)
-            );
-          },
-        });
+        processInterpolation$1(node, context, useCase, ignoreNg);
       },
     };
   },
   defaultOptions: [{ case: "kebab", ignoreNgInterpolation: false }],
 };
+
+function processTextAttribute(node, context, useCase) {
+  if (node.name !== "id") return;
+  const idValue = node.value;
+
+  if (!idValue.trim()) {
+    context.report({
+      node,
+      message: `Template id attributes should not be empty.`,
+    });
+  } else if (!formatCase[useCase].test(idValue)) {
+    context.report({
+      node,
+      message: `Template id attributes should be in ${nameCase[useCase]}.`,
+      fix(fixer) {
+        return fixer.replaceTextRange(
+          range(node.valueSpan),
+          fixCase[useCase](idValue)
+        );
+      },
+    });
+  }
+}
+
+function processInterpolation$1(node, context, useCase, ignoreNg) {
+  if (ignoreNg || node.parent?.parent?.name !== "id") return;
+
+  const idVars = node.expressions.map(buildExpression);
+
+  const idStrings = node.strings;
+
+  const mergedString = stringMerge(
+    useCase,
+    idStrings,
+    Array(idStrings.length - 1).fill(nameCase[useCase]),
+    true
+  );
+
+  if (!mergedString || formatCase[useCase].test(mergedString)) return;
+
+  const fixedStrings = idStrings.map((strng) => fixCase[useCase](strng));
+
+  context.report({
+    node: node.parent.parent,
+    message: `Template id attributes should be in ${nameCase[useCase]}.`,
+    fix(fixer) {
+      return fixer.replaceTextRange(
+        [node.sourceSpan.start, node.sourceSpan.end],
+        stringMerge(useCase, fixedStrings, idVars)
+      );
+    },
+  });
+}
