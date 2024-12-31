@@ -19,17 +19,21 @@ describe("no-binding-literals", () => {
   ruleTester.run("kebab-case", rule, {
     valid: [
       {
+        name: `prop="my string"`,
         code: '<div prop="my string"></div>',
       },
       {
+        name: `[prop]="'my' + 'string'"`,
         code: `<div [prop]="'my' + 'string'"></div>`,
       },
       {
+        name: `*ngSwitchCase="'my string'"`,
         code: `<div *ngSwitchCase="'my string'"></div>`,
       },
     ],
     invalid: [
       {
+        name: `[prop]="'my string'"`,
         code: `<div [prop]="'my string'"></div>`,
         output: '<div prop="my string"></div>',
         errors: [
@@ -37,6 +41,7 @@ describe("no-binding-literals", () => {
         ],
       },
       {
+        name: `*ngIf="'bananas'"`,
         code: `<div *ngIf="'bananas'"></div>`,
         errors: [
           {
@@ -46,6 +51,7 @@ describe("no-binding-literals", () => {
         ],
       },
       {
+        name: `*ngSwitchDefault="'bananas'"`,
         code: `<div *ngSwitchDefault="'bananas'"></div>`,
         output: "<div *ngSwitchDefault></div>",
         errors: [

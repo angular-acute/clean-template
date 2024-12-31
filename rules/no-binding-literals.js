@@ -9,9 +9,9 @@ module.exports = {
     },
   },
   create: (context) => {
-    const range = (node,plus) => [
+    const range = (node, plus) => [
       node.sourceSpan.start.offset,
-      node.sourceSpan.end.offset+(plus?1:0),
+      node.sourceSpan.end.offset + (plus ? 1 : 0),
     ];
 
     return {
@@ -30,30 +30,30 @@ module.exports = {
               },
             });
           } else if (
-            !["ngSwitchCase", "ngSwitchDefault", "ngClass", "ngStyle"].includes(node.name)
+            !["ngSwitchCase", "ngSwitchDefault", "ngClass", "ngStyle"].includes(
+              node.name
+            )
           ) {
             context.report({
               node,
               messageId: "structural",
               data: { theString: node.value.source },
             });
-        } else if (
-           (node.name)==="ngSwitchDefault"
-        ) {
-          context.report({
-            node,
-            messageId: "structural",
-            data: { theString: node.value.source },
-            fix(fixer) {
-              return fixer.replaceTextRange(
-                range(node,true),
-                `${node.name}`
-              );
-            },
-        });
+          } else if (node.name === "ngSwitchDefault") {
+            context.report({
+              node,
+              messageId: "structural",
+              data: { theString: node.value.source },
+              fix(fixer) {
+                return fixer.replaceTextRange(
+                  range(node, true),
+                  `${node.name}`
+                );
+              },
+            });
+          }
         }
-      }
-    }
-          };
+      },
+    };
   },
 };
