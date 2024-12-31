@@ -1,56 +1,56 @@
-caseToKebab = (input) =>
+const caseToKebab = (input) =>
   (input ?? "")
     .trim()
     .replace(/([a-z])([A-Z])/g, "$1-$2")
     .toLowerCase()
     .replace(/[\W_]/g, "-");
 
-caseToSnake = (input) => caseToKebab(input).replace(/-/, "_");
+const caseToSnake = (input) => caseToKebab(input).replace(/-/, "_");
 
-caseToCamel = (input) =>
+const caseToCamel = (input) =>
   (input ?? "").trim().replace(/[-_.]([a-z])/g, (c) => c[1].toUpperCase());
 
-caseToPascal = (input) =>
+const caseToPascal = (input) =>
   caseToCamel(input).replace(/^[a-z]/, (c) => c[0].toUpperCase());
 
-formatCase = {
+const formatCase = {
   kebab: /^[a-z][a-z0-9-]*$/,
   snake: /^[a-z][a-z0-9_]*$/,
   camel: /^[a-z]+([A-Z0-9][a-z0-9]*)*$/,
   pascal: /^[A-Z][a-z0-9]+([A-Z][a-z0-9]*)*$/,
 };
-nameCase = {
+const nameCase = {
   kebab: "kebab-case",
   snake: "snake_case",
   camel: "camelCase",
   pascal: "PascalCase",
 };
-fixCase = {
+const fixCase = {
   kebab: caseToKebab,
   snake: caseToSnake,
   camel: caseToCamel,
   pascal: caseToPascal,
 };
-joinCase = {
+const joinCase = {
   kebab: "-",
   snake: "_",
   camel: "",
   pascal: "",
 };
 
-range = (span) => [
+const range = (span) => [
   span.fullStart?.offset ?? span.start?.offset,
   span.end?.offset,
 ];
 
-getSource = (obj) => obj.source ?? getSource(obj.parent);
+const getSource = (obj) => obj.source ?? getSource(obj.parent);
 
-buildExpression = (exp) => {
+function buildExpression(exp) {
   return getSource(exp)?.substring(exp.span.start, exp.span.end);
-};
+}
 
-stringMerge = (useCase, stringArray, varArray, pre) =>
-  stringArray
+function stringMerge(useCase, stringArray, varArray, pre) {
+  return stringArray
     .reduce((newArray, strng, i) => {
       const trimmed = pre
         ? strng
@@ -62,40 +62,7 @@ stringMerge = (useCase, stringArray, varArray, pre) =>
       return sendArray;
     }, [])
     .join(pre ? "" : joinCase[useCase]);
-
-module.exports = {
-  meta: {
-    fixable: "code",
-    type: "layout",
-    schema: [
-      {
-        type: "object",
-        properties: {
-          case: {
-            type: "string",
-            enum: ["kebab", "snake", "camel", "pascal"],
-          },
-          ignoreNgInterpolation: { type: "boolean" },
-        },
-      },
-    ],
-  },
-  create: (context) => {
-    const useCase = context.options?.at(0)?.case ?? "kebab";
-    const ignoreNg = context.options?.at(0)?.ignoreNgInterpolation;
-
-    return {
-      TextAttribute(node) {
-        processTextAttribute(node, context, useCase);
-      },
-
-      Interpolation$1(node) {
-        processInterpolation$1(node, context, useCase, ignoreNg);
-      },
-    };
-  },
-  defaultOptions: [{ case: "kebab", ignoreNgInterpolation: false }],
-};
+}
 
 function processTextAttribute(node, context, useCase) {
   if (node.name !== "id") return;
@@ -149,3 +116,37 @@ function processInterpolation$1(node, context, useCase, ignoreNg) {
     },
   });
 }
+
+module.exports = {
+  meta: {
+    fixable: "code",
+    type: "layout",
+    schema: [
+      {
+        type: "object",
+        properties: {
+          case: {
+            type: "string",
+            enum: ["kebab", "snake", "camel", "pascal"],
+          },
+          ignoreNgInterpolation: { type: "boolean" },
+        },
+      },
+    ],
+  },
+  create: (context) => {
+    const useCase = context.options?.at(0)?.case ?? "kebab";
+    const ignoreNg = context.options?.at(0)?.ignoreNgInterpolation;
+
+    return {
+      TextAttribute(node) {
+        processTextAttribute(node, context, useCase);
+      },
+
+      Interpolation$1(node) {
+        processInterpolation$1(node, context, useCase, ignoreNg);
+      },
+    };
+  },
+  defaultOptions: [{ case: "kebab", ignoreNgInterpolation: false }],
+};
