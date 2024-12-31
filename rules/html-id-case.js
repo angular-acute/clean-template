@@ -71,12 +71,13 @@ function processTextAttribute(node, context, useCase) {
   if (!idValue.trim()) {
     context.report({
       node,
-      message: `Template id attributes should not be empty.`,
+      messageId: "missingId",
     });
   } else if (!formatCase[useCase].test(idValue)) {
     context.report({
       node,
-      message: `Template id attributes should be in ${nameCase[useCase]}.`,
+      messageId: "incorrectCase",
+      data: { case: nameCase[useCase] },
       fix(fixer) {
         return fixer.replaceTextRange(
           range(node.valueSpan),
@@ -107,7 +108,8 @@ function processInterpolation$1(node, context, useCase, ignoreNg) {
 
   context.report({
     node: node.parent.parent,
-    message: `Template id attributes should be in ${nameCase[useCase]}.`,
+    messageId: "incorrectCase",
+    data: { case: nameCase[useCase] },
     fix(fixer) {
       return fixer.replaceTextRange(
         [node.sourceSpan.start, node.sourceSpan.end],
@@ -120,7 +122,7 @@ function processInterpolation$1(node, context, useCase, ignoreNg) {
 module.exports = {
   meta: {
     fixable: "code",
-    type: "layout",
+    type: "problem",
     schema: [
       {
         type: "object",
@@ -128,15 +130,30 @@ module.exports = {
           case: {
             type: "string",
             enum: ["kebab", "snake", "camel", "pascal"],
+            description:
+              "The case style to enforce for template id attributes.",
           },
-          ignoreNgInterpolation: { type: "boolean" },
+          ignoreInterpolated: {
+            type: "boolean",
+            description:
+              'Whether to ignore id\'s with Angular interpolation (e.g. id="my-id-{{ value }}").',
+          },
         },
+        additionalProperties: false,
       },
     ],
+    messages: {
+      incorrectCase: "Template id attributes should be in {{ case }}.",
+      missingId: "Template id attributes should not be empty.",
+    },
+    docs: {
+      description: "Enforces consistent case styling of the HTML id attribute.",
+      url: "",
+    },
   },
   create: (context) => {
     const useCase = context.options?.at(0)?.case ?? "kebab";
-    const ignoreNg = context.options?.at(0)?.ignoreNgInterpolation;
+    const ignoreNg = context.options?.at(0)?.ignoreInterpolated;
 
     return {
       TextAttribute(node) {
@@ -148,5 +165,5 @@ module.exports = {
       },
     };
   },
-  defaultOptions: [{ case: "kebab", ignoreNgInterpolation: false }],
+  defaultOptions: [{ case: "kebab", ignoreInterpolated: false }],
 };

@@ -47,7 +47,7 @@ describe("html-id-case", () => {
         },
         {
           code: '<div id="ignored Case {{ withInterpolation }}"></div>',
-          options: [{ case: "kebab", ignoreNgInterpolation: true }],
+          options: [{ case: "kebab", ignoreInterpolated: true }],
         },
       ],
       invalid: [
@@ -254,7 +254,7 @@ describe("html-id-case", () => {
         },
         {
           code: '<div id="ignored Case {{ withInterpolation }}"></div>',
-          options: [{ case: "snake", ignoreNgInterpolation: true }],
+          options: [{ case: "snake", ignoreInterpolated: true }],
         },
       ],
       invalid: [
@@ -289,7 +289,7 @@ describe("html-id-case", () => {
         },
         {
           code: '<div id="ignored Case {{ withInterpolation }}"></div>',
-          options: [{ case: "camel", ignoreNgInterpolation: true }],
+          options: [{ case: "camel", ignoreInterpolated: true }],
         },
       ],
       invalid: [
@@ -324,7 +324,7 @@ describe("html-id-case", () => {
         },
         {
           code: '<div id="ignored Case {{ withInterpolation }}"></div>',
-          options: [{ case: "pascal", ignoreNgInterpolation: true }],
+          options: [{ case: "pascal", ignoreInterpolated: true }],
         },
       ],
       invalid: [
@@ -347,7 +347,7 @@ describe("html-id-case", () => {
       valid: [
         {
           code: '<div id="ignored Case {{ withInterpolation }}"></div>',
-          options: [{ case: "kebab", ignoreNgInterpolation: true }],
+          options: [{ case: "kebab", ignoreInterpolated: true }],
         },
       ],
       invalid: [
