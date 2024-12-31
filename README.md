@@ -80,9 +80,9 @@ module.exports = [
 🔒 Set in the `strict` configuration.\
 🔧 Automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/user-guide/command-line-interface#--fix).
 
-| Name                                                     | Description                                                | 💼 | ⚠️ | 🔧 |
-| :------------------------------------------------------- | :--------------------------------------------------------- | :- | :- | :- |
-| [html-id-case](docs/rules/html-id-case.md)               | Enforces consistent case styling of the HTML id attribute. | 🔒 | ✅  | 🔧 |
-| [no-binding-literals](docs/rules/no-binding-literals.md) |                                                            | 🔒 | ✅  | 🔧 |
+| Name                                                     | Description                                                | 💼  | ⚠️  | 🔧  |
+| :------------------------------------------------------- | :--------------------------------------------------------- | :-- | :-- | :-- |
+| [html-id-case](docs/rules/html-id-case.md)               | Enforces consistent case styling of the HTML id attribute. | 🔒  | ✅  | 🔧  |
+| [no-binding-literals](docs/rules/no-binding-literals.md) |                                                            | 🔒  | ✅  | 🔧  |
 
 <!-- end auto-generated rules list -->
