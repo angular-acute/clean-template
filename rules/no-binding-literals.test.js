@@ -21,6 +21,12 @@ describe("no-binding-literals", () => {
       {
         code: '<div prop="my string"></div>',
       },
+      {
+        code: `<div [prop]="'my' + 'string'"></div>`,
+      },
+      {
+        code: `<div *ngSwitchCase="'my string'"></div>`,
+      },
     ],
     invalid: [
       {
@@ -31,10 +37,12 @@ describe("no-binding-literals", () => {
         ],
       },
       {
-        code: `<div prop={{'some string'}}></div>`,
-        output: '<div prop="my string"></div>',
+        code: `<div *ngIf="'bananas'"></div>`,
         errors: [
-          { message: "Unnecessary binding of string literal 'my string'." },
+          {
+            message:
+              "Pointless structural binding of string literal 'bananas'.",
+          },
         ],
       },
     ],
