@@ -86,9 +86,10 @@ module.exports = [
 🔒 Set in the `strict` configuration.\
 🔧 Automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/user-guide/command-line-interface#--fix).
 
-| Name                                                     | Description                                                | 💼  | ⚠️  | 🔧  |
-| :------------------------------------------------------- | :--------------------------------------------------------- | :-- | :-- | :-- |
-| [html-id-case](docs/rules/html-id-case.md)               | Enforces consistent case styling of the HTML id attribute. | 🔒  | ✅  | 🔧  |
-| [no-binding-literals](docs/rules/no-binding-literals.md) | Prevent binding properties to string literals.             | 🔒  | ✅  | 🔧  |
+| Name                                                             | Description                                                   | 💼  | ⚠️  | 🔧  |
+| :--------------------------------------------------------------- | :------------------------------------------------------------ | :-- | :-- | :-- |
+| [html-id-case](docs/rules/html-id-case.md)                       | Enforces consistent case styling of the HTML id attribute.    | 🔒  | ✅  | 🔧  |
+| [no-binding-literals](docs/rules/no-binding-literals.md)         | Prevent binding properties to string literals.                | 🔒  | ✅  | 🔧  |
+| [prefer-variable-binding](docs/rules/prefer-variable-binding.md) | Enforces property binding over simple variable interpolation. | 🔒  | ✅  | 🔧  |
 
 <!-- end auto-generated rules list -->
