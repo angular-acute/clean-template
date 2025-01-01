@@ -81,13 +81,13 @@ describe("prefer-variable-binding", () => {
         ],
       },
       {
-        name: `prop="{{ myVariable + myMethod(index) }}"`,
-        code: `<div prop="{{ myVariable + myMethod(index) }}"></div>`,
-        output: '<div [prop]="myVariable + myMethod(index)"></div>',
+        name: `prop="{{ myVariable + this.myMethod(index) }}"`,
+        code: `<div prop="{{ myVariable + this.myMethod(index) }}"></div>`,
+        output: '<div [prop]="myVariable + this.myMethod(index)"></div>',
         errors: [
           {
             message:
-              "Prefer binding 'myVariable + myMethod(index)', rather than interpolating.",
+              "Prefer binding 'myVariable + this.myMethod(index)', rather than interpolating.",
           },
         ],
       },
