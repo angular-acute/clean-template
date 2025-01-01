@@ -2,7 +2,7 @@ import templateParser from "@angular-eslint/template-parser";
 
 export default [
   {
-    ignores: [],
+    ignores: ["coverage/"],
   },
   {
     files: ["**/*.ts"],

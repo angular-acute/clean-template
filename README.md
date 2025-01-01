@@ -10,7 +10,7 @@ npm install --save-dev eslint eslint-plugin-clean-template
 
 **Requires ESLint `>=8.56.0`.**
 
-Use a [preset config](#preset-configs-eslintconfigjs) or configure each rule in `eslint.config.js`.
+Use `recommended` or `strict` settings, or configure each rule in `eslint.config`.
 
 If you don't use the preset, ensure you use the same `languageOptions` config as below.
 
@@ -31,6 +31,8 @@ export default [
     },
     rules: {
       "@acute/clean-template/html-id-case": "warn",
+      "@acute/clean-template/no-binding-literals": "warn",
+      "@acute/clean-template/prefer-variable-binding": "warn",
     },
   },
 ];
@@ -53,6 +55,8 @@ module.exports = [
     },
     rules: {
       "@acute/clean-template/html-id-case": "warn",
+      "@acute/clean-template/no-binding-literals": "warn",
+      "@acute/clean-template/prefer-variable-binding": "warn",
     },
   },
 ];
@@ -65,7 +69,9 @@ module.exports = [
   "parser": "@angular-eslint/template-parser",
   "plugins": ["@acute/clean-template"],
   "rules": {
-    "@acute/clean-template/html-id-case": "warn"
+    "@acute/clean-template/html-id-case": "warn",
+    "@acute/clean-template/no-binding-literals": "warn",
+    "@acute/clean-template/prefer-variable-binding": "warn"
   }
 }
 ```
@@ -83,6 +89,6 @@ module.exports = [
 | Name                                                     | Description                                                | 💼  | ⚠️  | 🔧  |
 | :------------------------------------------------------- | :--------------------------------------------------------- | :-- | :-- | :-- |
 | [html-id-case](docs/rules/html-id-case.md)               | Enforces consistent case styling of the HTML id attribute. | 🔒  | ✅  | 🔧  |
-| [no-binding-literals](docs/rules/no-binding-literals.md) |                                                            | 🔒  | ✅  | 🔧  |
+| [no-binding-literals](docs/rules/no-binding-literals.md) | Prevent binding properties to string literals.             | 🔒  | ✅  | 🔧  |
 
 <!-- end auto-generated rules list -->

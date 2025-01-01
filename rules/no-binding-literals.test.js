@@ -16,7 +16,7 @@ const ruleTester = new RuleTester({
 });
 
 describe("no-binding-literals", () => {
-  ruleTester.run("kebab-case", rule, {
+  ruleTester.run("no-binding-literals", rule, {
     valid: [
       {
         name: `prop="my string"`,
