@@ -1,13 +1,7 @@
-## Options
+# Prevent binding properties to string literals (`@acute/clean-template/no-binding-literals`)
 
-none
+💼⚠️ This rule is enabled in the 🔒 `strict` config. This rule _warns_ in the ✅ `recommended` config.
 
-## Config
+🔧 This rule is automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/user-guide/command-line-interface#--fix).
 
-```json
-{
-  "rules": {
-    "no-binding-literals": ["warn"]
-  }
-}
-```
+<!-- end auto-generated rule header -->
