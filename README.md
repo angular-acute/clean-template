@@ -89,6 +89,6 @@ module.exports = [
 | Name                                                     | Description                                                | 💼  | ⚠️  | 🔧  |
 | :------------------------------------------------------- | :--------------------------------------------------------- | :-- | :-- | :-- |
 | [html-id-case](docs/rules/html-id-case.md)               | Enforces consistent case styling of the HTML id attribute. | 🔒  | ✅  | 🔧  |
-| [no-binding-literals](docs/rules/no-binding-literals.md) |                                                            | 🔒  | ✅  | 🔧  |
+| [no-binding-literals](docs/rules/no-binding-literals.md) | Prevent binding properties to string literals.             | 🔒  | ✅  | 🔧  |
 
 <!-- end auto-generated rules list -->
