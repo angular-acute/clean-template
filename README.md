@@ -32,6 +32,7 @@ export default [
     rules: {
       "@acute/clean-template/html-id-case": "warn",
       "@acute/clean-template/no-binding-literals": "warn",
+      "@acute/clean-template/no-template-this": "warn",
       "@acute/clean-template/prefer-variable-binding": "warn",
     },
   },
@@ -56,6 +57,7 @@ module.exports = [
     rules: {
       "@acute/clean-template/html-id-case": "warn",
       "@acute/clean-template/no-binding-literals": "warn",
+      "@acute/clean-template/no-template-this": "warn",
       "@acute/clean-template/prefer-variable-binding": "warn",
     },
   },
@@ -71,6 +73,7 @@ module.exports = [
   "rules": {
     "@acute/clean-template/html-id-case": "warn",
     "@acute/clean-template/no-binding-literals": "warn",
+    "@acute/clean-template/no-template-this": "warn",
     "@acute/clean-template/prefer-variable-binding": "warn"
   }
 }
@@ -90,6 +93,7 @@ module.exports = [
 | :--------------------------------------------------------------- | :------------------------------------------------------------ | :-- | :-- | :-- |
 | [html-id-case](docs/rules/html-id-case.md)                       | Enforces consistent case styling of the HTML id attribute.    | 🔒  | ✅  | 🔧  |
 | [no-binding-literals](docs/rules/no-binding-literals.md)         | Prevent binding properties to string literals.                | 🔒  | ✅  | 🔧  |
+| [no-template-this](docs/rules/no-template-this.md)               | Help prevent using unnecessary `this` in templates.           | 🔒  | ✅  | 🔧  |
 | [prefer-variable-binding](docs/rules/prefer-variable-binding.md) | Enforces property binding over simple variable interpolation. | 🔒  | ✅  | 🔧  |
 
 <!-- end auto-generated rules list -->
