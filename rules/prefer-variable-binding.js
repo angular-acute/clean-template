@@ -3,7 +3,7 @@ const getSource = (obj) => obj.source ?? getSource(obj.parent);
 module.exports = {
   meta: {
     fixable: "code",
-    type: "problem",
+    type: "suggestion",
     messages: {
       binding: "Prefer binding '{{ theVariable }}', rather than interpolating.",
       interpolation: "Unnecessary interpolation of '{{ theValue }}'.",
