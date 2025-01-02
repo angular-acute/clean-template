@@ -1,4 +1,4 @@
-# eslint-plugin-clean-template
+# @acute/eslint-plugin-clean-template
 
 ## Install
 

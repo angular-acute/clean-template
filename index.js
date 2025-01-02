@@ -1,5 +1,6 @@
 module.exports = {
   rules: {
+    "html-class-case": require("./rules/html-class-case"),
     "html-id-case": require("./rules/html-id-case"),
     "no-binding-literals": require("./rules/no-binding-literals"),
     "no-template-this": require("./rules/no-template-this"),
@@ -9,6 +10,7 @@ module.exports = {
     recommended: {
       plugins: ["@acute/clean-template"],
       rules: {
+        "@acute/clean-template/html-class-case": "warn",
         "@acute/clean-template/html-id-case": "warn",
         "@acute/clean-template/no-binding-literals": "warn",
         "@acute/clean-template/no-template-this": "warn",
@@ -18,6 +20,7 @@ module.exports = {
     strict: {
       plugins: ["@acute/clean-template"],
       rules: {
+        "@acute/clean-template/html-class-case": "error",
         "@acute/clean-template/html-id-case": "error",
         "@acute/clean-template/no-binding-literals": "error",
         "@acute/clean-template/no-template-this": "error",
