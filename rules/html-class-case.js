@@ -43,80 +43,101 @@ const range = (span) => [
   span.end?.offset,
 ];
 
+ 
+
 const getSource = (obj) => obj.source ?? getSource(obj.parent);
 
 function buildExpression(exp) {
   return getSource(exp)?.substring(exp.span.start, exp.span.end);
 }
 
-function stringMerge(useCase, stringArray, varArray, pre) {
-  return stringArray
-    .reduce((newArray, strng, i) => {
-      const trimmed = pre
-        ? strng
-        : /^[-_]*([\w-]*[a-zA-Z0-9])[_-]*$/.exec(strng)?.at(1);
-      const sendArray = newArray;
-      if (trimmed) sendArray.push(trimmed);
-      if (!!varArray.at(i) || varArray.at(i) === 0)
-        sendArray.push(pre ? `${varArray.at(i)}` : `{{ ${varArray.at(i)} }}`);
-      return sendArray;
-    }, [])
-    .join(pre ? "" : joinCase[useCase]);
-}
+ 
 
 function processTextAttribute(node, context, useCase) {
   if (node.name !== "class") return;
-  const idValue = node.value;
 
-  if (!idValue.trim()) {
+  if (!node.value.trim()) {
     context.report({
       node,
       messageId: "missingClass",
     });
-  } else if (!formatCase[useCase].test(idValue)) {
-    context.report({
-      node,
-      messageId: "incorrectCase",
-      data: { case: nameCase[useCase] },
-      fix(fixer) {
-        return fixer.replaceTextRange(
-          range(node.valueSpan),
-          fixCase[useCase](idValue)
-        );
-      },
-    });
+    return;
   }
+
+  const classValues = node.value.split(/(?<!\{\{[^}]*) (?!\}\})/);
+  const nodeSpan=range(node.valueSpan)
+
+  classValues.forEach((classValue) => {
+    const classOffset=Math.max(node.value.indexOf(classValue),0)
+    const classSpan = [nodeSpan[0]+classOffset,Math.min(nodeSpan[1],nodeSpan[0]+classOffset+classValue.length)]
+  
+    if (!formatCase[useCase].test(classValue)) {
+      context.report({
+        node,
+        messageId: "incorrectCase",
+        data: { case: nameCase[useCase] },
+        fix(fixer) {
+          return fixer.replaceTextRange(
+            classSpan,
+            fixCase[useCase](classValue)
+          );
+        },
+      });
+    }
+  });
 }
 
 function processInterpolation$1(node, context, useCase, ignoreNg) {
   if (ignoreNg || node.parent?.parent?.name !== "class") return;
+const reg = /\{\{(?:[^{}]|\{[^{}]*\})*\}\}/g
 
-  const idVars = node.expressions.map(buildExpression);
+  const allClassVars = node.expressions.map(buildExpression);
+  const source = getSource(node);
 
-  const idStrings = node.strings;
+  
 
-  const mergedString = stringMerge(
-    useCase,
-    idStrings,
-    Array(idStrings.length - 1).fill(nameCase[useCase]),
-    true
-  );
 
-  if (!mergedString || formatCase[useCase].test(mergedString)) return;
 
-  const fixedStrings = idStrings.map((strng) => fixCase[useCase](strng));
+  const modSource = source.replace(/\{\{/g, "##OPEN##").replace(/\}\}/g, "##CLOSE##")
 
-  context.report({
-    node: node.parent.parent,
-    messageId: "incorrectCase",
-    data: { case: nameCase[useCase] },
-    fix(fixer) {
-      return fixer.replaceTextRange(
-        [node.sourceSpan.start, node.sourceSpan.end],
-        stringMerge(useCase, fixedStrings, idVars)
-      );
-    },
-  });
+const classValues = source.split(/(?<!\{\{[^}]*) (?!\}\})/);
+const classVales = modSource.split(/(?<!##OPEN##) (?!##CLOSE##)/);
+const nodeSpan = [node.sourceSpan.start, node.sourceSpan.end];
+
+classValues.forEach((classValue )=>{
+
+
+  const unterpolated = classValue.replace(reg, nameCase[useCase] )
+  const classOffset=Math.max(source.indexOf(classValue),0)
+  const classSpan = [nodeSpan[0]+classOffset,Math.min(nodeSpan[1],nodeSpan[0]+classOffset+classValue.length)]
+
+  if (!unterpolated || formatCase[useCase].test(unterpolated)) return;
+
+const classSegments =  classValue.split( reg )
+  const classVars=(allClassVars.length>1?allClassVars.splice(0,classSegments.length-1):allClassVars).map((classVar)=>`{{ ${classVar} }}`)
+
+
+
+const fixedClass=classSegments.reduce(( fixed,segment,index)=>{
+  const fixedSegment=fixCase[useCase](segment)
+  const joiner = (index<(classSegments.length-1)&&!fixedSegment.endsWith(joinCase[useCase]))?joinCase[useCase]:""
+return `${fixed}${fixedSegment}${joiner}${classVars[index]??""}`
+},"")
+
+context.report({
+      node: node.parent.parent,
+      messageId: "incorrectCase",
+      data: { case: nameCase[useCase] },
+      fix(fixer) {
+        return fixer.replaceTextRange(classSpan, fixedClass);
+      },
+    });
+
+
+})
+
+
+ 
 }
 
 module.exports = {
@@ -147,7 +168,8 @@ module.exports = {
       missingClass: "Template class attributes should not be empty.",
     },
     docs: {
-      description: "Enforces consistent case styling of the HTML class attribute.",
+      description:
+        "Enforces consistent case styling of the HTML class attribute.",
       url: "",
     },
   },

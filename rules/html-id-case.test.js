@@ -37,8 +37,8 @@ describe("html-id-case", () => {
           options,
         },
         {
-          name: `id="kebab-case-{{ withInterpolation }}-and-{{more}}"`,
-          code: '<div id="kebab-case-{{ withInterpolation }}-and-{{more}}"></div>',
+          name: `id="kebab-case-{{ withInterpolation }}-and-{{ more }}"`,
+          code: '<div id="kebab-case-{{ withInterpolation }}-and-{{ more }}"></div>',
           options,
         },
         {
