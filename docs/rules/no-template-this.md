@@ -1,4 +1,4 @@
-# Help prevent using unnecessary `this` in templates (`@acute/clean-template/no-template-this`)
+# Help prevent using unnecessary `this` in templates (`@acute-ng/clean-template/no-template-this`)
 
 💼⚠️ This rule is enabled in the 🔒 `strict` config. This rule _warns_ in the ✅ `recommended` config.
 
