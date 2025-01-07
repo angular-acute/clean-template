@@ -1,9 +1,9 @@
-# eslint-plugin-clean-template
+# @acute-ng/eslint-plugin-clean-template
 
 ## Install
 
 ```sh
-npm install --save-dev eslint eslint-plugin-clean-template
+npm install --save-dev eslint @acute-ng/eslint-plugin-clean-template
 ```
 
 ## Usage (`eslint.config.js`)
@@ -17,7 +17,7 @@ If you don't use the preset, ensure you use the same `languageOptions` config as
 ### ES Module (Recommended)
 
 ```js
-import acuteCleanTemplate from "@acute/eslint-plugin-clean-template";
+import acuteCleanTemplate from "@acute-ng/eslint-plugin-clean-template";
 import templateParser from "@angular-eslint/template-parser";
 
 export default [
@@ -27,13 +27,13 @@ export default [
       parser: templateParser,
     },
     plugins: {
-      "@acute/clean-template": acuteCleanTemplate,
+      "@acute-ng/clean-template": acuteCleanTemplate,
     },
     rules: {
-      "@acute/clean-template/html-id-case": "warn",
-      "@acute/clean-template/no-binding-literals": "warn",
-      "@acute/clean-template/no-template-this": "warn",
-      "@acute/clean-template/prefer-variable-binding": "warn",
+      "@acute-ng/clean-template/html-id-case": "warn",
+      "@acute-ng/clean-template/no-binding-literals": "warn",
+      "@acute-ng/clean-template/no-template-this": "warn",
+      "@acute-ng/clean-template/prefer-variable-binding": "warn",
     },
   },
 ];
@@ -43,7 +43,7 @@ export default [
 
 ```js
 "use strict";
-const acuteCleanTemplate = require("@acute/eslint-plugin-clean-template");
+const acuteCleanTemplate = require("@acute-ng/eslint-plugin-clean-template");
 const templateParser = require("@angular-eslint/template-parser");
 
 module.exports = [
@@ -52,13 +52,13 @@ module.exports = [
       parser: templateParser,
     },
     plugins: {
-      "@acute/clean-template": acuteCleanTemplate,
+      "@acute-ng/clean-template": acuteCleanTemplate,
     },
     rules: {
-      "@acute/clean-template/html-id-case": "warn",
-      "@acute/clean-template/no-binding-literals": "warn",
-      "@acute/clean-template/no-template-this": "warn",
-      "@acute/clean-template/prefer-variable-binding": "warn",
+      "@acute-ng/clean-template/html-id-case": "warn",
+      "@acute-ng/clean-template/no-binding-literals": "warn",
+      "@acute-ng/clean-template/no-template-this": "warn",
+      "@acute-ng/clean-template/prefer-variable-binding": "warn",
     },
   },
 ];
@@ -69,12 +69,12 @@ module.exports = [
 ```json
 {
   "parser": "@angular-eslint/template-parser",
-  "plugins": ["@acute/clean-template"],
+  "plugins": ["@acute-ng/clean-template"],
   "rules": {
-    "@acute/clean-template/html-id-case": "warn",
-    "@acute/clean-template/no-binding-literals": "warn",
-    "@acute/clean-template/no-template-this": "warn",
-    "@acute/clean-template/prefer-variable-binding": "warn"
+    "@acute-ng/clean-template/html-id-case": "warn",
+    "@acute-ng/clean-template/no-binding-literals": "warn",
+    "@acute-ng/clean-template/no-template-this": "warn",
+    "@acute-ng/clean-template/prefer-variable-binding": "warn"
   }
 }
 ```

@@ -1,4 +1,4 @@
-# Prevent binding properties to string literals (`@acute/clean-template/no-binding-literals`)
+# Prevent binding properties to string literals (`@acute-ng/clean-template/no-binding-literals`)
 
 💼⚠️ This rule is enabled in the 🔒 `strict` config. This rule _warns_ in the ✅ `recommended` config.
 

@@ -1,4 +1,4 @@
-# Enforces property binding over simple variable interpolation (`@acute/clean-template/prefer-variable-binding`)
+# Enforces property binding over simple variable interpolation (`@acute-ng/clean-template/prefer-variable-binding`)
 
 💼⚠️ This rule is enabled in the 🔒 `strict` config. This rule _warns_ in the ✅ `recommended` config.
 

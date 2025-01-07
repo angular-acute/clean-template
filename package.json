@@ -1,9 +1,10 @@
 {
-  "name": "@acute/eslint-plugin-clean-template",
+  "name": "@acute-ng/eslint-plugin-clean-template",
   "version": "1.0.0",
   "description": "An ESLint plugins to keep your Angular template clean.",
   "main": "index.js",
   "keywords": [
+    "angular",
     "eslint-plugin",
     "eslint"
   ],
