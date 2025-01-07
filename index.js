@@ -7,21 +7,21 @@ module.exports = {
   },
   configs: {
     recommended: {
-      plugins: ["@acute/clean-template"],
+      plugins: ["@acute-ng/clean-template"],
       rules: {
-        "@acute/clean-template/html-id-case": "warn",
-        "@acute/clean-template/no-binding-literals": "warn",
-        "@acute/clean-template/no-template-this": "warn",
-        "@acute/clean-template/prefer-variable-binding": "warn",
+        "@acute-ng/clean-template/html-id-case": "warn",
+        "@acute-ng/clean-template/no-binding-literals": "warn",
+        "@acute-ng/clean-template/no-template-this": "warn",
+        "@acute-ng/clean-template/prefer-variable-binding": "warn",
       },
     },
     strict: {
-      plugins: ["@acute/clean-template"],
+      plugins: ["@acute-ng/clean-template"],
       rules: {
-        "@acute/clean-template/html-id-case": "error",
-        "@acute/clean-template/no-binding-literals": "error",
-        "@acute/clean-template/no-template-this": "error",
-        "@acute/clean-template/prefer-variable-binding": "error",
+        "@acute-ng/clean-template/html-id-case": "error",
+        "@acute-ng/clean-template/no-binding-literals": "error",
+        "@acute-ng/clean-template/no-template-this": "error",
+        "@acute-ng/clean-template/prefer-variable-binding": "error",
       },
     },
   },

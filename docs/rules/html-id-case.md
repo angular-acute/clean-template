@@ -1,4 +1,4 @@
-# Enforces consistent case styling of the HTML id attribute (`@acute/clean-template/html-id-case`)
+# Enforces consistent case styling of the HTML id attribute (`@acute-ng/clean-template/html-id-case`)
 
 💼⚠️ This rule is enabled in the 🔒 `strict` config. This rule _warns_ in the ✅ `recommended` config.
 
