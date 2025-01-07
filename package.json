@@ -11,7 +11,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/angular-acute/clean-template.git"
+    "url": "git+https://github.com/angular-acute/clean-template.git"
   },
   "bugs": {
     "url": "https://github.com/angular-acute/clean-template/issues"
@@ -41,5 +41,8 @@
   ],
   "engines": {
     "node": ">=20.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
